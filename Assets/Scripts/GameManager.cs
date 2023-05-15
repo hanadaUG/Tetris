@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // 生成されたブロック
+        if (activeBlock)
+        {
+            activeBlock.MoveDown();
+        }
     }
 }

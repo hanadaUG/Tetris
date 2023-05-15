@@ -4,15 +4,46 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private bool canRotate = true;
+
+    void Move(Vector3 moveDirection)
     {
-        
+        transform.position += moveDirection;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveLeft()
     {
-        
+        Move(new Vector3(-1, 0, 0));
+    }
+
+    public void MoveRight()
+    {
+        Move(new Vector3(1, 0, 0));
+    }
+
+    public void MoveUp()
+    {
+        Move(new Vector3(0, 1, 0));
+    }
+
+    public void MoveDown()
+    {
+        Move(new Vector3(0, -1, 0));
+    }
+
+    public void RotateLeft()
+    {
+        if (canRotate)
+        {
+            transform.Rotate(0, 0, 90); // Z軸を中心に回転
+        }
+    }
+
+    public void RotateRight()
+    {
+        if (canRotate)
+        {
+            transform.Rotate(0, 0, -90); // Z軸を中心に回転
+        }
     }
 }
