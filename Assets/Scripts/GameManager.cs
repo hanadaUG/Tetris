@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     private Spawner spawner;
     private Block activeBlock;
 
+    [SerializeField] private float dropInterval = 0.25f;
+    private float _nextDropTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +25,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 生成されたブロック
-        if (activeBlock)
+        // インターバルに設定した時間が経過したら生成されたブロックを自動落下させる
+        if (Time.time > _nextDropTimer)
         {
-            activeBlock.MoveDown();
+            // タイマー更新
+            _nextDropTimer = Time.time + dropInterval;
+
+            // 落下
+            if (activeBlock)
+            {
+                activeBlock.MoveDown();
+            }
         }
     }
 }
