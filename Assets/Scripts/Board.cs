@@ -31,4 +31,33 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+     // ブロックが枠内にあるのか判定
+     public bool CheckPosition(Block block)
+     {
+         // 親Blockは複数個のBlockオブジェクトを組み合わせて
+         // I型やL型などの形にしているため
+         // 子Blockの位置をforeachで全件枠内に収まっているかチェックする
+         foreach (Transform item in block.transform)
+         {
+             // xy座標が少数点で返ってくる可能性があるため整数に丸める処理
+             Vector3 position = item.position;
+             Vector2 pos = new Vector2(Mathf.Round(position.x), Mathf.Round(position.y));
+
+             int x = (int)pos.x;
+             int y = (int)pos.y;
+             if (!BoardOutCheck(x, y))
+             {
+                 // 枠内からはみ出ている場合
+                 return false;
+             }
+         }
+         return true;
+     }
+
+     bool BoardOutCheck(int x, int y)
+     {
+         // x軸は0以上、width未満（横が収まっているか）、y軸は0以上（縦が収まっているか）
+         return (x >= 0 && x < width && y >= 0);
+     }
 }

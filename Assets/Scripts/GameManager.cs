@@ -10,11 +10,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float dropInterval = 0.25f;
     private float _nextDropTimer;
 
+    private Board _board;
+
     // Start is called before the first frame update
     void Start()
     {
         // Spawnerがアタッチされているゲームオブジェクトを探す
         spawner = GameObject.FindObjectOfType<Spawner>();
+
+        // Boardを変数に格納する
+        _board = GameObject.FindObjectOfType<Board>();
 
         if (!activeBlock)
         {
@@ -35,6 +40,14 @@ public class GameManager : MonoBehaviour
             if (activeBlock)
             {
                 activeBlock.MoveDown();
+
+                // 枠内からBlockがはみ出ていないか確認
+                if (!_board.CheckPosition(activeBlock))
+                {
+                    // はみ出ていたら落下
+                    activeBlock.MoveUp();
+                    activeBlock = spawner.SpawnBlock();
+                }
             }
         }
     }
