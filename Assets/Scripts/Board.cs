@@ -12,6 +12,9 @@ public class Board : MonoBehaviour
     [SerializeField]
     private int height = 30, width = 10, header = 8;
 
+    // 2次元配列の作成
+    private Transform[,] _grid;
+
     private void Start()
     {
         CreateBoard();
@@ -50,6 +53,13 @@ public class Board : MonoBehaviour
                  // 枠内からはみ出ている場合
                  return false;
              }
+
+             // 移動先が空いているか（ブロックが存在しないか）
+             if (BlockCheck(x, y, block))
+             {
+                 // ブロックがあるので移動できない
+                 return false;
+             }
          }
          return true;
      }
@@ -58,5 +68,15 @@ public class Board : MonoBehaviour
      {
          // x軸は0以上、width未満（横が収まっているか）、y軸は0以上（縦が収まっているか）
          return (x >= 0 && x < width && y >= 0);
+     }
+
+     // 移動先にブロックがないか判定する関数
+     bool BlockCheck(int x, int y, Block block)
+     {
+         // 二次元配列 _grid が null ではない = ブロックが存在する
+         // 親ゲームオブジェクトが違う = 自分自身ではない（移動先が自分自身のブロックである場合があるため）
+         // TODO: 多次元配列へのアクセスはパフォーマンスが悪いとのこと
+         // Accessing multidimensional arrays is inefficient. Use a jagged or one-dimensional array instead.
+         return (_grid[x, y] != null && _grid[x, y].parent != block.transform);
      }
 }
