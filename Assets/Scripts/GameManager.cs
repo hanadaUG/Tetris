@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
         // Boardを変数に格納する
         _board = GameObject.FindObjectOfType<Board>();
 
+        // ブロック位置を補正
+        spawner.transform.position = Rounding.Round(spawner.transform.position);
+
         if (!activeBlock)
         {
             activeBlock = spawner.SpawnBlock();
