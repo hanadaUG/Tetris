@@ -41,8 +41,7 @@ public class Board : MonoBehaviour
          foreach (Transform item in block.transform)
          {
              // xy座標が少数点で返ってくる可能性があるため整数に丸める処理
-             Vector3 position = item.position;
-             Vector2 pos = new Vector2(Mathf.Round(position.x), Mathf.Round(position.y));
+             Vector2 pos = Rounding.Round(item.position);
 
              int x = (int)pos.x;
              int y = (int)pos.y;
