@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,10 @@ public class GameManager : MonoBehaviour
                 {
                     // はみ出ていたら落下
                     activeBlock.MoveUp();
+
+                    // ブロック位置保存
+                    _board.SaveBlockInGrid(activeBlock);
+
                     activeBlock = spawner.SpawnBlock();
                 }
             }

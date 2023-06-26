@@ -15,6 +15,11 @@ public class Board : MonoBehaviour
     // 2次元配列の作成
     private Transform[,] _grid;
 
+    private void Awake()
+    {
+        _grid = new Transform[width, height];
+    }
+
     private void Start()
     {
         CreateBoard();
@@ -78,5 +83,15 @@ public class Board : MonoBehaviour
          // TODO: 多次元配列へのアクセスはパフォーマンスが悪いとのこと
          // Accessing multidimensional arrays is inefficient. Use a jagged or one-dimensional array instead.
          return (_grid[x, y] != null && _grid[x, y].parent != block.transform);
+     }
+
+     // ブロックが落ちた位置を記録する関数
+     public void SaveBlockInGrid(Block block)
+     {
+         foreach (Transform item in block.transform)
+         {
+             Vector2 pos = Rounding.Round(item.position);
+             _grid[(int)pos.x, (int)pos.y] = item;
+         }
      }
 }
