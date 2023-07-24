@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     // 入力インターバル
     [SerializeField]
-    private float nextKeyDownInterval, nextKeyLeftRightInterval, nextKeyRotateInterval;
+    private float nextKeyDownInterval = 0.2f, nextKeyLeftRightInterval = 0.2f, nextKeyRotateInterval = 0.2f;
 
     // Start is called before the first frame update
     void Start()
